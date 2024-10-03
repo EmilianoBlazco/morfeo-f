@@ -1,7 +1,7 @@
 'use client'
 
 import {RegisterUserType, UserType} from "@/types/users.types";
-import {createContext, ReactNode, useEffect, useState} from "react";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {csrfToken} from "@/api/csrfToken";
 import {registerUser} from "@/api/registerUser";
@@ -10,6 +10,7 @@ import {checkSession} from "@/api/checkSession";
 interface AuthContextType {
     user: UserType | null;
     register: (user: RegisterUserType) => Promise<boolean>;
+    //TODO: Crear funcion de login
 }
 
 // Creamos el contexto con un valor inicial undefined
@@ -49,10 +50,24 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         }
     };
 
+    //TODO: Implementar función de login
+    //TODO: Minimante usar csrfToken, checkSession, setUser y router.push('/dashboard')
+    //TODO: Crear llamada a la API
+    //TODO: Crear vista y componente
+
     return (
         <AuthContext.Provider value={{user, register}}>
             {children}
         </AuthContext.Provider>
     );
 
-}
+};
+
+// Hook para usar el contexto de autenticación
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider'); // Error si el hook se usa fuera del proveedor
+    }
+    return context;
+};
