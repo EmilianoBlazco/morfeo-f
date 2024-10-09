@@ -1,6 +1,7 @@
 'use client'
 
 import Register from "@/components/auth/register";
+import withLayout from "@/lib/withLayout";
 
 
 const RegisterPage = () => {
@@ -10,4 +11,4 @@ const RegisterPage = () => {
     );
 }
 
-export default RegisterPage;
+export default withLayout(RegisterPage);
