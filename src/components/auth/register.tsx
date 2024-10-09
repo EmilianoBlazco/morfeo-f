@@ -13,6 +13,7 @@ import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, Form
 import {useState} from "react";
 import {Eye, EyeOff, Loader2} from "lucide-react";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
+import {usePasswordValidator} from "@/hooks/usePasswordValidation";
 
 
 const RegisterComponent = () => {
@@ -22,27 +23,23 @@ const RegisterComponent = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const [passwordCriteria, setPasswordCriteria] = useState({
-        length: false,
-        specialChar: false,
-        upperLowerCase: false,
-        number: false,
-    });
-
     const form = useForm<RegisterUserType>(
         {
             resolver: zodResolver(RegisterUserValidator),
+            defaultValues: {
+                name: "",
+                surname: "",
+                dni: "",
+                phone: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+            },
         }
     );
 
-    const validatePassword = (password: string) => {
-        setPasswordCriteria({
-            length: password.length >= 8 && password.length <= 70,
-            specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-            upperLowerCase: /(?=.*[a-z])(?=.*[A-Z])/.test(password),
-            number: /[0-9]/.test(password),
-        });
-    };
+    const password = form.watch("password", "");
+    const passwordCriteria = usePasswordValidator(password);
 
     async function onSubmit(data: RegisterUserType) {
         console.log(data);
@@ -205,10 +202,6 @@ const RegisterComponent = () => {
                                                             type={showPassword ? "text" : "password"}
                                                             placeholder="Contraseña"
                                                             {...field}
-                                                            onChange={(e) => {
-                                                                field.onChange(e);
-                                                                validatePassword(e.target.value);
-                                                            }}
                                                             required={true}
                                                             aria-required="true"
                                                             aria-describedby="password-criteria"
