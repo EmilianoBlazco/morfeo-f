@@ -8,20 +8,17 @@ export const UserValidator = z.object({
     name: z.string()
         .min(1, {message: "El nombre debe tener al menos una letra"})
         .max(255, {message: "El nombre no puede tener más de 255 letras"})
-        .toLowerCase()
-        .default(''),
+        .toLowerCase(),
 
     surname: z.string()
         .min(1, {message: "El apellido debe tener al menos una letra"})
         .max(255, {message: "El apellido no puede tener más de 255 letras"})
-        .toLowerCase()
-        .default(''),
+        .toLowerCase(),
 
     email: z.string()
         .trim()
         .email({message: "El correo electrónico no es válido"})
-        .max(255, {message: "El correo electrónico no puede tener más de 255 caracteres"})
-        .default(''),
+        .max(255, {message: "El correo electrónico no puede tener más de 255 caracteres"}),
 
     email_verified_at: z.string()
         .datetime({message: "Formato de fecha inválido"}),
@@ -30,35 +27,25 @@ export const UserValidator = z.object({
         .trim()
         .min(7, {message: "El DNI debe tener al menos 7 números"})
         .max(9, {message: "El DNI no puede tener más de 9 números"})
-        .regex(/^\d+$/, {message: "El DNI debe contener solo números"})
-        .default(''),
+        .regex(/^\d+$/, {message: "El DNI debe contener solo números"}),
 
     phone: z.string()
         .trim()
         .min(10, {message: "El celular debe tener al menos 10 números"})
         .max(15, {message: "El celular no puede tener más de 15 números"})
         .regex(/^\d+$/, {message: "El celular debe contener solo números"})
-        .or(z.literal('')).default(''),
+        .or(z.literal('')),
 
     password: z.string()
-        .trim()
         .min(8, {message: "La contraseña debe tener al menos 8 caracteres"})
         .max(70, {message: "La contraseña no puede tener más de 70 caracteres"})
         .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/, {
             message: "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial"
-        })
-        .default(''),
+        }),
 
-    password_confirmation: z.string()
-        .trim()
-        .min(8, {message: "La confirmacion de contraseña debe tener al menos 8 caracteres"})
-        .max(70, {message: "La confirmacion de contraseña no puede tener más de 70 caracteres"})
-        .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/, {
-            message: "La confirmacion de contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial"
-        })
-        .default(''),
+    password_confirmation: z.string(),
 
-    remember: z.boolean().default(false)
+    remember: z.boolean(),
 });
 
 export const RegisterUserValidator = UserValidator.omit({
@@ -66,6 +53,7 @@ export const RegisterUserValidator = UserValidator.omit({
     email_verified_at: true,
     remember: true
 }).refine((data) => data.password === data.password_confirmation, {
+    path: ['password_confirmation'],
     message: "Las contraseñas no coinciden",
 });
 
