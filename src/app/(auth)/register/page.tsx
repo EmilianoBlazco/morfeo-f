@@ -1,6 +1,5 @@
 'use client'
 
-import Register from "@/components/auth/register";
 import withLayout from "@/lib/withLayout";
 import Register from "@components/self/views/auth/register";
 import Image from "next/image";
