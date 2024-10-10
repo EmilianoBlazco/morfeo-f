@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactNode, ButtonHTMLAttributes} from "react";
 import {Loader2} from "lucide-react";
 import {Button} from "@components/ui/button";
 
