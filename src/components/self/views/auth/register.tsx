@@ -230,7 +230,7 @@ const RegisterComponent = () => {
                                                                     Al menos 8 caracteres
                                                                 </li>
                                                                 <li className={passwordCriteria.specialChar ? "text-green-600" : "text-red-500"}>
-                                                                    Al menos un carácter especial (!@#$%^&*(),.?":{}|&lt;&gt;)
+                                                                    Al menos un carácter especial (!@#$%^&*(),.?&quot;:{}|&lt;&gt;)
                                                                 </li>
                                                                 <li className={passwordCriteria.upperLowerCase ? "text-green-600" : "text-red-500"}>
                                                                     Al menos una letra mayúscula y una minúscula
