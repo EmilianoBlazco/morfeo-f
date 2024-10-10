@@ -2,7 +2,7 @@ import { Home, ShoppingCart, Package, Users } from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
-type SidebarLink = {
+type SidebarLink = { //TODO: agregar la "r" a sidebar
     href: string;
     icon: ComponentType;
     label: string;
@@ -16,8 +16,7 @@ const baseLinks: SidebarLink[] = [
 // Configuración de rutas adicionales
 const routesConfig: Record<string, SidebarLink[]> = {
     dashboard: [
-        { href: "/turnos", icon: ShoppingCart, label: "Turnos" },
-        { href: "/profile", icon: Users, label: "Perfil" },
+        { href: "/asistencia", icon: Users, label: "Asistencia" },
     ],
     profile: [
         { href: "/verify-account", icon: ShoppingCart, label: "Verificaciónes de la cuenta" },
@@ -28,7 +27,7 @@ const routesConfig: Record<string, SidebarLink[]> = {
     ],
 };
 
-export const getSidebarLinks = (pathname: string): SidebarLink[] => {
+export const getSiderbarLinks = (pathname: string): SidebarLink[] => {
     // Filtra las rutas específicas según el pathname
     const additionalLinks = Object.entries(routesConfig).reduce<SidebarLink[]>((acc, [key, links]) => {
         if (pathname.startsWith(`/${key}`)) {

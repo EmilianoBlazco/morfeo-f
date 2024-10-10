@@ -3,7 +3,9 @@
 import withLayout from "@/lib/withLayout";
 
 const DashboardPage = () => {
-    return <div>Dashboard</div>;
+    return <div>
+
+    </div>;
 }
 
 export default withLayout(DashboardPage);
