@@ -4,14 +4,12 @@ import {Button} from "@components/ui/button";
 
 //FC -> Functional Component practicamente me permite decir que va a ser un componente que define props, return y un children
 //ReactNode -> Es un tipo de dato que puede ser cualquier cosa que pueda ser renderizado por React (componente, numero, string, etc)
-interface LoadingButtonProps {
+interface LoadingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { 
     isLoading: boolean;
     loadingText: string;
     children: ReactNode;
     icon?: ReactNode;
     className?: string;
-
-    [key: string]: any; // para recibir cualquier otra prop como `type`, `onClick`, etc.
 }
 
 const LoadingButton = (
@@ -21,13 +19,14 @@ const LoadingButton = (
         children,
         icon = <Loader2 className="w-6 h-6 animate-spin" aria-hidden="true"/>,
         className = "",
+        disabled,
         ...props
     }: LoadingButtonProps
 ) => {
     return (
         <Button
-            disabled={isLoading}
-            className={`"w-full" ${className}`}
+            disabled={isLoading || disabled}
+            className={`w-full ${className}`}
             aria-busy={isLoading}
             {...props}
         >
