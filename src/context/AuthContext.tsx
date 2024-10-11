@@ -1,16 +1,17 @@
 'use client'
 
-import {RegisterUserType, UserType} from "@/types/users.types";
+import {LoginUserType, RegisterUserType, UserType} from "@/types/users.types";
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {csrfToken} from "@/api/csrfToken";
 import {registerUser} from "@/api/registerUser";
 import {checkSession} from "@/api/checkSession";
+import {loginUser} from "@/api/login";
 
 interface AuthContextType {
     user: UserType | null;
     register: (user: RegisterUserType) => Promise<boolean>;
-    //TODO: Crear funcion de login
+    login: (user: LoginUserType) => Promise<boolean>;
 }
 
 // Creamos el contexto con un valor inicial undefined
@@ -45,18 +46,30 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             router.push('/dashboard');
             return true;
         } catch (error) {
+            //TODO: Manejar el error
             console.error(error);
             return false;
         }
     };
 
-    //TODO: Implementar función de login
-    //TODO: Minimante usar csrfToken, checkSession, setUser y router.push('/dashboard')
-    //TODO: Crear llamada a la API
-    //TODO: Crear vista y componente
+
+    const login = async (user: LoginUserType) => {
+        try {
+            await csrfToken();
+            await loginUser(user);
+            const {data} = await checkSession();
+            setUser(data);
+            router.push('/dashboard');
+            return true;
+        } catch (error) {
+            //TODO: Manejar el error
+            console.error(error);
+            return false;
+        }
+    }
 
     return (
-        <AuthContext.Provider value={{user, register}}>
+        <AuthContext.Provider value={{user, register, login}}>
             {children}
         </AuthContext.Provider>
     );

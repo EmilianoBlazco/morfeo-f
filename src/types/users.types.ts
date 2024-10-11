@@ -57,5 +57,15 @@ export const RegisterUserValidator = UserValidator.omit({
     message: "Las contraseñas no coinciden",
 });
 
+export const LoginUserValidator = UserValidator.pick({
+    email: true,
+    password: true,
+    remember: true
+}).extend({
+    password: z.string()
+        .min(1, {message: "Debes proporcionar una contraseña"}),
+})
+
 export type UserType = z.infer<typeof UserValidator>;
 export type RegisterUserType = z.infer<typeof RegisterUserValidator>;
+export type LoginUserType = z.infer<typeof LoginUserValidator>;
