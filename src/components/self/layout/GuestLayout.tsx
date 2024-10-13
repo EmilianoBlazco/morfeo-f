@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 
-export default function GuestLayout({ children }: { children: ReactNode }) {
+export default function GuestLayout({children}: { children: ReactNode }) {
     return (
         <>
             <main className='py-20'>{children}</main>

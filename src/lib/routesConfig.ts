@@ -1,6 +1,6 @@
 // routesConfig.ts
-import GuestLayout from '@/components/layout/GuestLayout';
-import AuthLayout from '@/components/layout/AuthLayout';
+import GuestLayout from '@components/self/layout/GuestLayout';
+import AuthLayout from '@components/self/layout/AuthLayout';
 //import AdminLayout from '@/components/layouts/AdminLayout';
 //import MainLayout from '@/components/layouts/MainLayout';
 
