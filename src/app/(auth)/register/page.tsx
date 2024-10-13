@@ -1,5 +1,6 @@
 'use client'
 
+import withLayout from "@/lib/withLayout";
 import Register from "@components/self/views/auth/register";
 import Image from "next/image";
 import AnimatedWrapper from "@components/self/animations/enter_from_side";
@@ -32,4 +33,4 @@ const RegisterPage = () => {
     );
 }
 
-export default RegisterPage;
+export default withLayout(RegisterPage);
