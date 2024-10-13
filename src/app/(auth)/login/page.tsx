@@ -1,17 +1,19 @@
 'use client'
 
-import withLayout from "@/lib/withLayout";
-import Register from "@components/self/views/auth/register";
 import Image from "next/image";
+import Login from "@components/self/views/auth/login";
 import AnimatedWrapper from "@components/self/animations/enter_from_side";
 
-
-const RegisterPage = () => {
-
+const LoginPage = () => {
     return (
         <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-            <AnimatedWrapper initialX={-50} exitX={50} duration={1}>
-                <div className="relative hidden bg-muted lg:block">
+            <div className="flex items-center justify-center py-12">
+                <AnimatedWrapper initialX={-50} exitX={50} duration={1}>
+                    <Login />
+                </AnimatedWrapper>
+            </div>
+            <AnimatedWrapper initialX={50} exitX={50} duration={1}>
+                <div className="flex items-center justify-center relative">
                     <Image
                         src="/images/Portada.png"
                         alt="Imagen de portada"
@@ -24,13 +26,9 @@ const RegisterPage = () => {
                     </h1>
                 </div>
             </AnimatedWrapper>
-            <div className="flex items-center justify-center py-12">
-                <AnimatedWrapper initialX={50} exitX={50} duration={1}>
-                <Register/>
-                </AnimatedWrapper>
-            </div>
         </div>
-    );
+    )
+        ;
 }
 
-export default withLayout(RegisterPage);
+export default LoginPage;

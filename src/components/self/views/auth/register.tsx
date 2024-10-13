@@ -64,7 +64,7 @@ const RegisterComponent = () => {
     return (
         <div className="mx-auto grid w-[450px] gap-6">
             <div className="grid gap-2 text-center">
-                <h1 className="text-3xl font-bold">Registro</h1>
+                <h1 className="text-3xl font-bold">Registrarse</h1>
                 <p className="text-balance text-muted-foreground">
                     Ingrese su información para crear una cuenta.
                 </p>
@@ -230,7 +230,8 @@ const RegisterComponent = () => {
                                                                     Al menos 8 caracteres
                                                                 </li>
                                                                 <li className={passwordCriteria.specialChar ? "text-green-600" : "text-red-500"}>
-                                                                    Al menos un carácter especial (!@#$%^&*(),.?&quot;:{}|&lt;&gt;)
+                                                                    Al menos un carácter especial
+                                                                    (!@#$%^&*(),.?&quot;:{}|&lt;&gt;)
                                                                 </li>
                                                                 <li className={passwordCriteria.upperLowerCase ? "text-green-600" : "text-red-500"}>
                                                                     Al menos una letra mayúscula y una minúscula
