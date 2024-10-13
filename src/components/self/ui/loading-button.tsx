@@ -1,10 +1,10 @@
-import {ReactNode, ButtonHTMLAttributes} from "react";
+import {ButtonHTMLAttributes, ReactNode} from "react";
 import {Loader2} from "lucide-react";
 import {Button} from "@components/ui/button";
 
 //FC -> Functional Component practicamente me permite decir que va a ser un componente que define props, return y un children
 //ReactNode -> Es un tipo de dato que puede ser cualquier cosa que pueda ser renderizado por React (componente, numero, string, etc)
-interface LoadingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { 
+interface LoadingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     isLoading: boolean;
     loadingText: string;
     children: ReactNode;

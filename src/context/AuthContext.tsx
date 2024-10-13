@@ -8,6 +8,7 @@ import {registerUser} from "@/api/auth/register";
 import {checkSession} from "@/api/general/checkSession";
 import {loginUser} from "@/api/auth/login";
 import {logoutUser} from "@/api/auth/logout";
+import Cookies from "js-cookie";
 
 interface AuthContextType {
     user: UserType | null;
@@ -30,9 +31,11 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             try {
                 const {data} = await checkSession();
                 setUser(data);
+                Cookies.set('authToken', 'true', { sameSite: 'lax' });
             } catch (error) {
                 console.log(error);
                 setUser(null);
+                Cookies.remove('authToken');
             }
         };
 
@@ -61,6 +64,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             await loginUser(user);
             const {data} = await checkSession();
             setUser(data);
+            Cookies.set('authToken', 'true', { sameSite: 'lax' });
             router.push('/dashboard');
             return true;
         } catch (error) {
@@ -72,9 +76,9 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
 
     const logout = async () => {
         try {
-            await csrfToken();
             await logoutUser();
             setUser(null);
+            Cookies.remove('authToken');
             router.push('/');
             return true;
         } catch (error) {
