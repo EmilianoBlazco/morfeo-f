@@ -3,15 +3,17 @@
 import {LoginUserType, RegisterUserType, UserType} from "@/types/users.types";
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-import {csrfToken} from "@/api/csrfToken";
-import {registerUser} from "@/api/registerUser";
-import {checkSession} from "@/api/checkSession";
-import {loginUser} from "@/api/login";
+import {csrfToken} from "@/api/general/csrfToken";
+import {registerUser} from "@/api/auth/register";
+import {checkSession} from "@/api/general/checkSession";
+import {loginUser} from "@/api/auth/login";
+import {logoutUser} from "@/api/auth/logout";
 
 interface AuthContextType {
     user: UserType | null;
     register: (user: RegisterUserType) => Promise<boolean>;
     login: (user: LoginUserType) => Promise<boolean>;
+    logout: () => Promise<boolean>;
 }
 
 // Creamos el contexto con un valor inicial undefined
@@ -68,8 +70,22 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         }
     }
 
+    const logout = async () => {
+        try {
+            await csrfToken();
+            await logoutUser();
+            setUser(null);
+            router.push('/');
+            return true;
+        } catch (error) {
+            //TODO: Manejar el error
+            console.error(error);
+            return false;
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{user, register, login}}>
+        <AuthContext.Provider value={{user, register, login, logout}}>
             {children}
         </AuthContext.Provider>
     );
