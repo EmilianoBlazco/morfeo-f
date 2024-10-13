@@ -114,7 +114,7 @@ const LoginComponent = () => {
                         <FormField
                             control={form.control}
                             name="remember"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <div className="flex items-center space-x-2">
                                         <FormControl>
@@ -124,7 +124,8 @@ const LoginComponent = () => {
                                                 onCheckedChange={(checked) => field.onChange(checked)}
                                             />
                                         </FormControl>
-                                        <FormLabel htmlFor="remember" className="text-sm font-medium leading-none align-middle">
+                                        <FormLabel htmlFor="remember"
+                                                   className="text-sm font-medium leading-none align-middle">
                                             Recordar sesión
                                         </FormLabel>
                                     </div>
