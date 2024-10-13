@@ -57,7 +57,7 @@ Sigue los pasos a continuación para configurar el proyecto en tu entorno local:
 
 ## Autores del Proyecto
 
-- Emiliano Nahuel Blazco
+- Blazco Emiliano Nahuel
 - Cristaldo Yonathan Ariel
 
 ## Licencia
