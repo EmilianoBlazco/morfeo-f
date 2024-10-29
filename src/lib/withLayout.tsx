@@ -1,9 +1,9 @@
-import {ComponentType, FC, ReactNode} from "react";
+import {ComponentType, FC} from "react";
 import { usePathname } from "next/navigation";
 import { routeLayouts } from "@/lib/routesConfig";
 
-const withLayout = (PageComponent: ComponentType<{ children?: ReactNode }>) => {
-    const WithLayout: FC<{ children?: ReactNode }> = (props) => {
+const withLayout = (PageComponent: ComponentType) => {
+    const WithLayout: FC = (props) => {
         const pathname = usePathname();
         const LayoutComponent = routeLayouts[pathname as keyof typeof routeLayouts] || routeLayouts["default"];
 
