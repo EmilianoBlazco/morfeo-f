@@ -15,8 +15,8 @@ const RegisterPage = () => {
                     <Image
                         src="/images/Portada.png"
                         alt="Imagen de portada"
-                        width="1920"
-                        height="1080"
+                        width={1920}
+                        height={1080}
                         className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                     />
                     <h1 className="absolute top-24 left-1/2 transform -translate-x-1/2 text-gray-500 font-bold text-4xl md:text-6xl lg:text-7xl whitespace-nowrap">
