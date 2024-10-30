@@ -19,13 +19,12 @@ const LoadingButton = (
         children,
         icon = <Loader2 className="w-6 h-6 animate-spin" aria-hidden="true"/>,
         className = "",
-        disabled,
         ...props
     }: LoadingButtonProps
 ) => {
     return (
         <Button
-            disabled={isLoading || disabled}
+            disabled={isLoading}
             className={`w-full ${className}`}
             aria-busy={isLoading}
             {...props}
