@@ -5,10 +5,12 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {csrfToken} from "@/api/general/csrfToken";
 import {registerUser} from "@/api/auth/register";
-import {checkSession} from "@/api/general/checkSession";
 import {loginUser} from "@/api/auth/login";
 import {logoutUser} from "@/api/auth/logout";
 import Cookies from "js-cookie";
+import {checkSession} from "@/api/general/checkSession";
+import {checkRole} from "@/api/role/checkRole";
+import {useHandleError} from "@/hooks/useHandleError";
 
 interface AuthContextType {
     user: UserType | null;
@@ -24,6 +26,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
 
     const [user, setUser] = useState<UserType | null>(null);
     const router = useRouter();
+    const handleError = useHandleError();
 
     // Efecto para verificar si hay una sesión activa al cargar la aplicación
     useEffect(() => {
@@ -51,8 +54,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             router.push('/dashboard');
             return true;
         } catch (error) {
-            //TODO: Manejar el error
-            console.error(error);
+            handleError('register',error);
             return false;
         }
     };
@@ -63,13 +65,14 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             await csrfToken();
             await loginUser(user);
             const {data} = await checkSession();
-            setUser(data);
+            const roleResponse = await checkRole();
+            console.log("role", roleResponse.data)
+            setUser({...data, role: roleResponse.data});
             Cookies.set('authToken', 'true', { sameSite: 'lax' });
             router.push('/dashboard');
             return true;
         } catch (error) {
-            //TODO: Manejar el error
-            console.error(error);
+            handleError('login',error);
             return false;
         }
     }
@@ -82,8 +85,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             router.push('/');
             return true;
         } catch (error) {
-            //TODO: Manejar el error
-            console.error(error);
+            handleError('logout',error);
             return false;
         }
     }

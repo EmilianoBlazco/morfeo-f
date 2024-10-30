@@ -1,6 +1,6 @@
 'use client'
 
-import withLayout from "@/lib/withLayout";
+import withLayout from "@/hocs/withLayout";
 import Register from "@components/self/views/auth/register";
 import Image from "next/image";
 import AnimatedWrapper from "@components/self/animations/enter_from_side";
@@ -26,7 +26,7 @@ const RegisterPage = () => {
             </AnimatedWrapper>
             <div className="flex items-center justify-center py-12">
                 <AnimatedWrapper initialX={50} exitX={50} duration={1}>
-                <Register/>
+                    <Register/>
                 </AnimatedWrapper>
             </div>
         </div>
