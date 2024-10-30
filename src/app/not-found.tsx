@@ -7,7 +7,7 @@ import {Button} from "@components/ui/button";
 import Link from "next/link";
 import {ScaleOnHover} from "@components/self/animations/scale-on-hover";
 
-const NotFoundPage = () => {
+export const NotFoundPage = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-white font-sans text-gray-900">
             <div className="container mx-auto px-4">
