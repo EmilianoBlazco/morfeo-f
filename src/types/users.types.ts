@@ -46,12 +46,15 @@ export const UserValidator = z.object({
     password_confirmation: z.string(),
 
     remember: z.boolean(),
+
+    role: z.array(z.string()),
 });
 
 export const RegisterUserValidator = UserValidator.omit({
     id: true,
     email_verified_at: true,
-    remember: true
+    remember: true,
+    role:true
 }).refine((data) => data.password === data.password_confirmation, {
     path: ['password_confirmation'],
     message: "Las contraseñas no coinciden",

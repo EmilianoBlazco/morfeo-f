@@ -1,6 +1,6 @@
 'use client'
 
-import withLayout from "@/lib/withLayout";
+import withLayout from "@/hocs/withLayout";
 import Register from "@components/self/views/auth/register";
 import Image from "next/image";
 import AnimatedWrapper from "@components/self/animations/enter_from_side";

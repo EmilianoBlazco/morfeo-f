@@ -288,7 +288,7 @@ const RegisterComponent = () => {
                             loadingText="Registrando..."
                             className="mt-3"
                             type="submit"
-                            disabled={!form.formState.isValid || isLoading}
+                            disabled={isLoading}
                         >
                             Registrarse
                         </LoadingButton>
