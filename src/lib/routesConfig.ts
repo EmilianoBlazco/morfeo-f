@@ -12,6 +12,8 @@ export const routeLayouts = {
     '/verify-account': AuthLayout,
     '/dashboard': AuthLayout,
     '/profile': AuthLayout,
+    '/qr-code': AuthLayout,
+    '/qr-scan': AuthLayout,
     //'/settings': AuthLayout,
     //'/admin': AdminLayout,
     //'/user': AuthLayout,
