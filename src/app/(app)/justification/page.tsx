@@ -1,6 +1,5 @@
 import JustificationComponent from "@components/self/views/app/justification";
 
-
 const JustificationPage = () => {
 
     return (
