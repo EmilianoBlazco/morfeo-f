@@ -18,6 +18,15 @@ export default function QRScannerComponent() {
     const scannerRef = useRef<Html5Qrcode | null>(null)
     const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
+    type ErrorResponse = {
+        response?: {
+            status?: number;
+            data?: {
+                error?: string;
+            };
+        };
+    };
+
     useEffect(() => {
         return () => {
             if (timeoutRef.current) {
@@ -82,8 +91,7 @@ export default function QRScannerComponent() {
                     description: `${isExit ? 'Salida' : 'Entrada'} registrada correctamente.`
                 });
             } catch (error) {
-
-                const errorResponse = (error as { response?: { status?: number, data?: any } }).response;
+                const errorResponse = (error as ErrorResponse).response;
 
                 if (errorResponse?.status === 400) {
                     toast({
@@ -97,6 +105,7 @@ export default function QRScannerComponent() {
                     });
                 }
             }
+
         } else {
             setScanStatus('error')
         }
