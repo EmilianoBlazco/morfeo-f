@@ -1,86 +1,133 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { CameraDevice, Html5Qrcode } from 'html5-qrcode'
+import { useState, useRef, useEffect } from 'react'
+import { Html5Qrcode } from 'html5-qrcode'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
-import { Loader2, QrCode, X } from "lucide-react"
+import { CheckCircle, XCircle, Loader2, QrCode, X } from "lucide-react"
+import { attendanceUser } from "@/api/attendance/attendance"
+import { AttendanceType } from "@/types"
 
-export default function Component() {
+export default function QRScannerComponent() {
     const [scanning, setScanning] = useState(false)
-    const [result, setResult] = useState('')
+    const [scanStatus, setScanStatus] = useState<'success' | 'error' | 'scanning' | 'idle'>('idle')
     const videoContainerId = 'qr-reader'
     const { toast } = useToast()
     const videoRef = useRef<HTMLDivElement>(null)
+    const scannerRef = useRef<Html5Qrcode | null>(null)
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-    // Cargar el sonido de éxito
     useEffect(() => {
-        const successSound = new Audio('/success.mp3')
-        successSound.load()
         return () => {
-            successSound.pause()
-            successSound.src = ''
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+            if (scannerRef.current) {
+                scannerRef.current.stop().catch(console.error)
+            }
         }
     }, [])
 
-    // Función para reproducir la voz con el texto escaneado
-    const speakText = (text: string) => {
-        const speech = new SpeechSynthesisUtterance(`Bienvenido. ${text}`)
-        speech.lang = 'es-ES'
-        speech.rate = 1
-        speech.pitch = 1
-        window.speechSynthesis.speak(speech)
+    const speakText = (text: string, entry: boolean) => {
+        const data = JSON.parse(text);
+        let name = '';
+
+        if (entry) {
+            name = `Bienvenido ${data.name}`;
+        } else if (!entry) {
+            name = `Hasta luego ${data.name}`;
+        }
+
+        if (name) {
+            const speech = new SpeechSynthesisUtterance(name);
+            speech.lang = 'es-ES';
+            speech.rate = 1;
+            speech.pitch = 1;
+            window.speechSynthesis.speak(speech);
+        }
+    };
+
+    const isValidQRFormat = (text: string) => {
+        try {
+            const data = JSON.parse(text)
+            return data && typeof data.id !== 'undefined' && typeof data.dni !== 'undefined' && typeof data.name !== 'undefined'
+        } catch {
+            return false
+        }
     }
 
-    // Función para iniciar el escaneo
-    const startScan = async () => {
-        try {
-            const scanner = new Html5Qrcode(videoContainerId)
-            setScanning(true)
+    const processQRCode = async (decodedText: string) => {
+        scannerRef.current?.pause(true)
 
-            await scanner.start(
+        if (isValidQRFormat(decodedText)) {
+
+            const data = JSON.parse(decodedText)
+            const attendanceData: AttendanceType = {
+                user_id: data.id,
+                scan_time: new Date().toLocaleString('es-AR', {
+                    timeZone: 'America/Argentina/Buenos_Aires',
+                    hour12: false
+                }),
+            }
+
+            try {
+                const response = await attendanceUser(attendanceData);
+                setScanStatus('success');
+
+                const isExit = response.data.data.exit_time;
+                speakText(decodedText, !isExit);
+
+                toast({
+                    description: `${isExit ? 'Salida' : 'Entrada'} registrada correctamente.`
+                });
+            } catch (error) {
+
+                const errorResponse = (error as { response?: { status?: number, data?: any } }).response;
+
+                if (errorResponse?.status === 400) {
+                    toast({
+                        description: errorResponse?.data?.error || "Ya existe una entrada para el usuario.",
+                        className: "bg-yellow-500 text-white"
+                    });
+                } else {
+                    toast({
+                        variant: "destructive",
+                        description: "Hubo un error al registrar la asistencia."
+                    });
+                }
+            }
+        } else {
+            setScanStatus('error')
+        }
+
+        timeoutRef.current = setTimeout(() => {
+            setScanStatus('scanning')
+            scannerRef.current?.resume()
+        }, 4000)
+    }
+
+    const startScan = async () => {
+        if (!scannerRef.current) {
+            scannerRef.current = new Html5Qrcode(videoContainerId)
+        }
+
+        try {
+            setScanning(true)
+            setScanStatus('scanning')
+
+            await scannerRef.current.start(
                 { facingMode: 'environment' },
                 {
                     fps: 10,
                     qrbox: (viewfinderWidth: number, viewfinderHeight: number) => {
                         const minDimension = Math.min(viewfinderWidth, viewfinderHeight)
-                        return {
-                            width: minDimension,
-                            height: minDimension
-                        }
+                        return { width: minDimension, height: minDimension }
                     }
                 },
-                (decodedText: string) => {
-                    setResult(decodedText)
-                    const successSound = new Audio('/success.mp3')
-                    successSound.play().catch(console.error)
-                    speakText(decodedText)
-                    scanner.stop().then(() => setScanning(false)).catch(console.error)
-                    toast({
-                        description: "El código QR ha sido escaneado con éxito.",
-                    })
-                },
-                (errorMessage: string) => {
-                    console.error('QR no detectado:', errorMessage)
-                }
+                processQRCode,
+                () => {} // Ignorar errores de detección de QR
             )
-
-            // Ajustar el tamaño del contenedor de video después de iniciar el escaneo
-            if (videoRef.current) {
-                const videoElement = videoRef.current.querySelector('video')
-                if (videoElement instanceof HTMLVideoElement) {
-                    const resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-                        for (const entry of entries) {
-                            const { height } = entry.contentRect
-                            if (videoRef.current) {
-                                videoRef.current.style.height = `${height}px`
-                            }
-                        }
-                    })
-                    resizeObserver.observe(videoElement)
-                }
-            }
         } catch (err) {
             console.error('Error al iniciar el escáner:', err)
             setScanning(false)
@@ -91,17 +138,21 @@ export default function Component() {
         }
     }
 
-    // Función para detener el escaneo
     const stopScan = () => {
-        Html5Qrcode.getCameras()
-            .then((devices: CameraDevice[]) => {
-                if (devices.length > 0) {
-                    const scanner = new Html5Qrcode(videoContainerId)
-                    scanner.stop().catch((err: Error) => console.error('Error al detener el escáner:', err))
-                }
-            })
-            .finally(() => setScanning(false))
-        window.speechSynthesis.cancel() // Detener cualquier síntesis de voz en progreso
+        if (scannerRef.current) {
+            scannerRef.current.stop()
+                .then(() => {
+                    setScanning(false)
+                    setScanStatus('idle')
+                    window.speechSynthesis.cancel()
+                    if (timeoutRef.current) {
+                        clearTimeout(timeoutRef.current)
+                    }
+                })
+                .catch((err: Error) => {
+                    console.error('Error al detener el escáner:', err)
+                })
+        }
     }
 
     return (
@@ -115,7 +166,7 @@ export default function Component() {
                         <QrCode className="mr-2 h-4 w-4" /> Escanear Código QR
                     </Button>
                 ) : (
-                    <Button onClick={stopScan} variant="destructive" className="w-full">
+                    <Button onClick={stopScan}  className="w-full">
                         <X className="mr-2 h-4 w-4" /> Detener Escaneo
                     </Button>
                 )}
@@ -126,19 +177,25 @@ export default function Component() {
                 ></div>
                 {scanning && (
                     <div className="flex items-center justify-center">
-                        <Loader2 className="h-6 w-6 animate-spin" />
-                        <span className="ml-2">Escaneando...</span>
+                        {scanStatus === 'scanning' && (
+                            <>
+                                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                <span className="text-sm">Escaneando...</span>
+                            </>
+                        )}
+                        {scanStatus === 'success' && (
+                            <div className="flex items-center text-green-500">
+                                <CheckCircle className="h-4 w-4 mr-2" />
+                                <span className="text-sm">Escaneo exitoso</span>
+                            </div>
+                        )}
+                        {scanStatus === 'error' && (
+                            <div className="flex items-center text-red-500">
+                                <XCircle className="h-4 w-4 mr-2" />
+                                <span className="text-sm">QR inválido</span>
+                            </div>
+                        )}
                     </div>
-                )}
-                {result && (
-                    <Card className="w-full mt-4">
-                        <CardHeader>
-                            <CardTitle className="text-lg">Resultado del Escaneo</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-sm break-all">{result}</p>
-                        </CardContent>
-                    </Card>
                 )}
             </CardContent>
         </Card>

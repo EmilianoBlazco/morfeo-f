@@ -18,7 +18,7 @@ export default function AuthLayout({children}: { children: ReactNode }) {
                 <Navbar/>
 
                 {/* Main Content */}
-                <main className="flex-1 overflow-y-auto pr-10">
+                <main className="flex-1 overflow-y-auto pr-14">
                     {children}
                 </main>
 
