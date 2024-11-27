@@ -1,8 +1,5 @@
-// routesConfig.ts
 import GuestLayout from '@components/self/layout/GuestLayout';
 import AuthLayout from '@components/self/layout/AuthLayout';
-//import AdminLayout from '@/components/layouts/AdminLayout';
-//import MainLayout from '@/components/layouts/MainLayout';
 
 export const routeLayouts = {
     '/login': GuestLayout,
@@ -14,6 +11,7 @@ export const routeLayouts = {
     '/profile': AuthLayout,
     '/qr-code': AuthLayout,
     '/qr-scan': AuthLayout,
+    '/license': AuthLayout,
     //'/settings': AuthLayout,
     //'/admin': AdminLayout,
     //'/user': AuthLayout,
