@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, Package, Users, ArchiveRestore } from "lucide-react";
+import {Home, ArchiveRestore, UserRoundSearch} from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
@@ -16,15 +16,8 @@ const baseLinks: SidebarLink[] = [
 // Configuración de rutas adicionales
 const routesConfig: Record<string, SidebarLink[]> = {
     dashboard: [
-        { href: "/asistencia", icon: Users, label: "Asistencias" },
-        { href: "/justification", icon: ArchiveRestore, label: "Inasistencias" },
-    ],
-    profile: [
-        { href: "/verify-account", icon: ShoppingCart, label: "Verificaciónes de la cuenta" },
-        { href: "/cambiar-contrasena", icon: Package, label: "Cambiar Contraseña" },
-    ],
-    verify: [
-        { href: "/verify-account", icon: ShoppingCart, label: "Verificaciónes de cuenta" },
+        { href: "/attendances", icon: ArchiveRestore, label: "Asistencias" },
+        { href: "/approve-justifications", icon: UserRoundSearch, label: "Control de Justificaciones" },
     ],
 };
 

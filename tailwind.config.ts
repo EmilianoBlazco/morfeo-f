@@ -37,9 +37,17 @@ const config: Config = {
   				foreground: 'hsl(var(--accent-foreground))'
   			},
   			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
+  				DEFAULT: "#f4a9ad", // Rojo pastel
+  				foreground: "#b12728", // Rojo oscuro para texto
   			},
+			succsess: {
+				DEFAULT: "#C8FACD", // Verde pastel
+				foreground: "#08660D", // Verde oscuro para texto
+			},
+			warning: {
+				DEFAULT: "#fff6a8", // Verde pastel
+				foreground: "#a5860a", // Verde oscuro para texto
+			},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',

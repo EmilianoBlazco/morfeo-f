@@ -2,7 +2,6 @@
 
 import withLayout from "@/hocs/withLayout";
 import {useAuth} from "@/context/AuthContext";
-import withRole from "@/hocs/withRole";
 
 const DashboardComponent = () => {
 
@@ -20,4 +19,4 @@ const DashboardComponent = () => {
 
 }
 
-export default withLayout(withRole(['Director', 'Admin'])(DashboardComponent));
+export default withLayout(DashboardComponent);

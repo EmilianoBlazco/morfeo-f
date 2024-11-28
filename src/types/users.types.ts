@@ -69,6 +69,11 @@ export const LoginUserValidator = UserValidator.pick({
         .min(1, {message: "Debes proporcionar una contraseña"}),
 })
 
+export const UserID = UserValidator.pick({
+    id: true
+});
+
 export type UserType = z.infer<typeof UserValidator>;
 export type RegisterUserType = z.infer<typeof RegisterUserValidator>;
 export type LoginUserType = z.infer<typeof LoginUserValidator>;
+export type UserIDType = z.infer<typeof UserID>;

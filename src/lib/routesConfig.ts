@@ -7,6 +7,7 @@ export const routeLayouts = {
     '/register': GuestLayout,
     '/dashboard': AuthLayout,
     '/profile': AuthLayout,
-    '/justification': AuthLayout,
+    '/attendances': AuthLayout,
+    '/approve-justifications': AuthLayout,
     'default': GuestLayout,
 };
