@@ -2,13 +2,12 @@ import {Avatar, AvatarFallback, AvatarImage} from "@components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@components/ui/dropdown-menu";
-import {LogOut, User} from "lucide-react";
+import {LogOut} from "lucide-react";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -17,8 +16,8 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@components/ui/breadcrumb";
-import Link from "next/link";
 import {useAuth} from "@/context/AuthContext";
+import NotificationsMenu from "@components/self/ui/notificationsMenu";
 
 const Navbar = () => {
 
@@ -48,6 +47,8 @@ const Navbar = () => {
 
             {/* Avatar y menú desplegable en el lado derecho */}
             <div className="flex items-center space-x-4">
+                <NotificationsMenu/>
+
                 {/* Dropdown Menu para Avatar */}
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -60,14 +61,6 @@ const Navbar = () => {
                     <DropdownMenuContent className="w-40" align="end">
                         <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
                         <DropdownMenuSeparator/>
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <Link href="/profile" className="flex items-center">
-                                    <User className="mr-2 h-4 w-4"/>
-                                    <span>Perfil</span>
-                                </Link>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
                         <DropdownMenuItem onClick={logout}>
                             <LogOut className="mr-2 h-4 w-4"/>
                             <span>Cerrar sesión</span></DropdownMenuItem>
