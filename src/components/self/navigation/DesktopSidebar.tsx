@@ -108,36 +108,38 @@ const Sidebar = () => {
                     </Button>
                 )}
             </div>
-            <nav className="flex flex-col min-h-full">
-                {links.map((link: SidebarLink, index: number) => (
-                    <motion.div
-                        key={link.href}
-                        initial={{opacity: 0, x: -20}}
-                        animate={{opacity: 1, x: 0}}
-                        transition={{delay: index * 0.1}}
-                    >
-                        <Link
-                            href={link.href}
-                            className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                                pathname === link.href ? "bg-muted text-primary" : ""
-                            }`}
-                            onMouseEnter={() => setHoveredLink(link.href)}
-                            onMouseLeave={() => setHoveredLink(null)}
+            <nav className="grid items-start px-2 text-sm font-medium lg:px-4 mt-4">
+                <div className="flex flex-col flex-grow">
+                    {links.map((link: SidebarLink, index: number) => (
+                        <motion.div
+                            key={link.href}
+                            initial={{opacity: 0, x: -20}}
+                            animate={{opacity: 1, x: 0}}
+                            transition={{delay: index * 0.1}}
                         >
-                            {link.icon && <link.icon/>}
-                            {link.label}
-                            {hoveredLink === link.href && (
-                                <motion.div
-                                    layoutId="hoverIndicator"
-                                    className="absolute left-0 w-1 h-full bg-primary"
-                                    initial={{opacity: 0}}
-                                    animate={{opacity: 1}}
-                                    exit={{opacity: 0}}
-                                />
-                            )}
-                        </Link>
-                    </motion.div>
-                ))}
+                            <Link
+                                href={link.href}
+                                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
+                                    pathname === link.href ? "bg-muted text-primary" : ""
+                                }`}
+                                onMouseEnter={() => setHoveredLink(link.href)}
+                                onMouseLeave={() => setHoveredLink(null)}
+                            >
+                                {link.icon && <link.icon/>}
+                                {link.label}
+                                {hoveredLink === link.href && (
+                                    <motion.div
+                                        layoutId="hoverIndicator"
+                                        className="absolute left-0 w-1 h-full bg-primary"
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 1}}
+                                        exit={{opacity: 0}}
+                                    />
+                                )}
+                            </Link>
+                        </motion.div>
+                    ))}
+                </div>
 
                 <div className="px-4 py-2 mt-auto">
                     <Button
