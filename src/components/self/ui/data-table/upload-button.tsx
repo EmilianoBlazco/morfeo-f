@@ -18,7 +18,7 @@ export const UploadButton: FC<UploadButtonProps> = ({ attendanceId, status }) =>
 
     useEffect(() => {
         // Si el estado es "Justificado", deshabilitamos el botón
-        if (status === "Justificado") {
+        if (status) {
             setFileUploaded(true);
         }
     }, [status]);
