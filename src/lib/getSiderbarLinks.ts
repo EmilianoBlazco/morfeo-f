@@ -1,4 +1,4 @@
-import {Home, ShoppingCart, QrCode, Package, Users, ScanLine} from "lucide-react";
+import {Home, ShoppingCart, QrCode, Package, Users, ScanLine, CalendarPlus} from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
@@ -14,6 +14,7 @@ const baseLinks: SidebarLink[] = [
     { href: "/asistencia", icon: Users, label: "Asistencia" },
     { href: "/qr-code", icon: QrCode, label: "Qr de Asistencia" },
     { href: "/qr-scan", icon: ScanLine , label: "Escaneo de Qr" },
+    { href: "/license", icon: CalendarPlus, label: "Licencias" },
 ];
 
 // Configuración de rutas adicionales
