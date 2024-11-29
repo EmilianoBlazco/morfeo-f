@@ -8,9 +8,10 @@ import { useAuth } from "@/context/AuthContext";
 
 type UploadButtonProps = {
     attendanceId: number;
+    status: boolean;
 };
 
-export const UploadButton: FC<UploadButtonProps> = ({ attendanceId }) => {
+export const UploadButton: FC<UploadButtonProps> = ({ attendanceId, status }) => {
     const { user } = useAuth();
     const [isModalOpen, setModalOpen] = useState(false);
     const [isFileUploaded, setFileUploaded] = useState(false); // Estado para saber si el archivo fue cargado
