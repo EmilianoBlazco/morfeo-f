@@ -1,4 +1,4 @@
-import {Home, QrCode, ScanLine, CalendarPlus. ArchiveRestore, UserRoundSearch} from "lucide-react";
+import {Home, QrCode, ScanLine, CalendarPlus, ArchiveRestore, UserRoundSearch} from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
