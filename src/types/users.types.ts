@@ -69,6 +69,12 @@ export const LoginUserValidator = UserValidator.pick({
         .min(1, {message: "Debes proporcionar una contraseña"}),
 })
 
+export const AttendanceValidator = z.object({
+    user_id: z.string().min(1, { message: "El ID de usuario es obligatorio" }),
+    scan_time: z.string().min(1, { message: "El tiempo de escaneo es obligatorio" })
+});
+
 export type UserType = z.infer<typeof UserValidator>;
 export type RegisterUserType = z.infer<typeof RegisterUserValidator>;
 export type LoginUserType = z.infer<typeof LoginUserValidator>;
+export type AttendanceType = z.infer<typeof AttendanceValidator>;

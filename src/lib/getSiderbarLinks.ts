@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, Package, Users } from "lucide-react";
+import {Home, ShoppingCart, QrCode, Package, Users, ScanLine} from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
@@ -11,12 +11,14 @@ type SidebarLink = { //TODO: agregar la "r" a sidebar
 // Enlaces base
 const baseLinks: SidebarLink[] = [
     { href: "/dashboard", icon: Home, label: "Inicio" },
+    { href: "/asistencia", icon: Users, label: "Asistencia" },
+    { href: "/qr-code", icon: QrCode, label: "Qr de Asistencia" },
+    { href: "/qr-scan", icon: ScanLine , label: "Escaneo de Qr" },
 ];
 
 // Configuración de rutas adicionales
 const routesConfig: Record<string, SidebarLink[]> = {
     dashboard: [
-        { href: "/asistencia", icon: Users, label: "Asistencia" },
     ],
     profile: [
         { href: "/verify-account", icon: ShoppingCart, label: "Verificaciónes de la cuenta" },
