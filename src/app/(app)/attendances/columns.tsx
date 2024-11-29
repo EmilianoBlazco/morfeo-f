@@ -63,7 +63,7 @@ export const columns: ColumnDef<Absences>[] = [
             const hoursDifference = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
 
             return isAbsent && hoursDifference <= 72 ? (
-                <UploadButton attendanceId={attendanceId} />
+                <UploadButton attendanceId={attendanceId} status={isJustified} />
             ) : isJustified ? (
                 <span className="text-green-600 flex justify-center items-center">
                 <CircleCheck />

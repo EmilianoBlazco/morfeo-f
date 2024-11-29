@@ -14,9 +14,9 @@ export function middleware(request: NextRequest) {
     }
 
     // Si el usuario no está autenticado y trata de acceder a cualquier ruta excepto las públicas, redirigir a login
-    if (!authToken && !publicRoutes.includes(pathname) && pathname !== '/') {
+    /*if (!authToken && !publicRoutes.includes(pathname) && pathname !== '/') {
         return NextResponse.redirect(new URL('/login', request.url));
-    }
+    }*/
 
     // En cualquier otro caso, permitir que la solicitud continúes
     return NextResponse.next();

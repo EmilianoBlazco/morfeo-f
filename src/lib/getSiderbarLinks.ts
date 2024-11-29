@@ -1,4 +1,4 @@
-import {Home, ArchiveRestore, UserRoundSearch} from "lucide-react";
+import {Home, QrCode, ScanLine, CalendarPlus, ArchiveRestore, UserRoundSearch} from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
@@ -11,6 +11,9 @@ type SidebarLink = { //TODO: agregar la "r" a sidebar
 // Enlaces base
 const baseLinks: SidebarLink[] = [
     { href: "/dashboard", icon: Home, label: "Inicio" },
+    { href: "/qr-code", icon: QrCode, label: "Qr de Asistencia" },
+    { href: "/qr-scan", icon: ScanLine , label: "Escaneo de Qr" },
+    { href: "/license", icon: CalendarPlus, label: "Licencias" },
 ];
 
 // Configuración de rutas adicionales
