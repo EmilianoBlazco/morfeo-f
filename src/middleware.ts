@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Rutas públicas que no requieren autenticación
-    const publicRoutes = ['/login', '/register'];
+    const publicRoutes = ['/login', '/register','/justification'];
 
     // Si el usuario está autenticado y está en la raíz o en login/register, redirigir a /learn
     if (authToken && (pathname === '/' || publicRoutes.includes(pathname))) {

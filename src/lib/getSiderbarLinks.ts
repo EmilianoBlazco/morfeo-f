@@ -1,4 +1,4 @@
-import {Home, ShoppingCart, QrCode, Package, Users, ScanLine, CalendarPlus} from "lucide-react";
+import {Home, QrCode, ScanLine, CalendarPlus, ArchiveRestore, UserRoundSearch} from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
@@ -11,7 +11,6 @@ type SidebarLink = { //TODO: agregar la "r" a sidebar
 // Enlaces base
 const baseLinks: SidebarLink[] = [
     { href: "/dashboard", icon: Home, label: "Inicio" },
-    { href: "/asistencia", icon: Users, label: "Asistencia" },
     { href: "/qr-code", icon: QrCode, label: "Qr de Asistencia" },
     { href: "/qr-scan", icon: ScanLine , label: "Escaneo de Qr" },
     { href: "/license", icon: CalendarPlus, label: "Licencias" },
@@ -20,13 +19,8 @@ const baseLinks: SidebarLink[] = [
 // Configuración de rutas adicionales
 const routesConfig: Record<string, SidebarLink[]> = {
     dashboard: [
-    ],
-    profile: [
-        { href: "/verify-account", icon: ShoppingCart, label: "Verificaciónes de la cuenta" },
-        { href: "/cambiar-contrasena", icon: Package, label: "Cambiar Contraseña" },
-    ],
-    verify: [
-        { href: "/verify-account", icon: ShoppingCart, label: "Verificaciónes de cuenta" },
+        { href: "/attendances", icon: ArchiveRestore, label: "Asistencias" },
+        { href: "/approve-justifications", icon: UserRoundSearch, label: "Control de Justificaciones" },
     ],
 };
 
