@@ -14,7 +14,7 @@ type ViewButtonProps = {
     justificationId: number; // ID del justificativo
 };
 
-export const ViewButton: FC<ViewButtonProps> = ({ fileUrl, justificationId }) => {
+export const ViewButtonLicense: FC<ViewButtonProps> = ({ fileUrl, justificationId }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const hanleError = useHandleError();
 
@@ -22,7 +22,7 @@ export const ViewButton: FC<ViewButtonProps> = ({ fileUrl, justificationId }) =>
         try {
             const { message } = await accept_justification(justificationId);
             toast({
-                title: "Justificativo aceptado",
+                title: "Licencia Aceptada",
                 description: message,
                 variant: "succsess",
             });
@@ -60,7 +60,7 @@ export const ViewButton: FC<ViewButtonProps> = ({ fileUrl, justificationId }) =>
             </Button>
 
             {isModalOpen && (
-                    <FilePreviewModal
+                <FilePreviewModal
                     fileUrl={fileUrl}
                     onClose={() => setModalOpen(false)}
                     onAccept={handleAccept}

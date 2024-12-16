@@ -3,7 +3,7 @@
 import {ColumnDef} from "@tanstack/react-table";
 import {format, parseISO} from "date-fns";
 import {es} from "date-fns/locale";
-import {ViewButton} from "@components/self/ui/data-table/view-button";
+import {ViewButtonLicense} from "@components/self/ui/data-table/view-button-license";
 
 export type VerifyLicenseType = {
     id: number;
@@ -20,9 +20,7 @@ export const columns: ColumnDef<VerifyLicenseType>[] = [
     {
         accessorKey: "employee_name",
         header: "Empleado",
-        cell: (row) => {
-            console.log(row);
-        },
+        cell: (info) => info.getValue(),
     },
     {
         accessorKey: "status",
@@ -64,9 +62,11 @@ export const columns: ColumnDef<VerifyLicenseType>[] = [
         cell: ({ row }) => {
             const { justification_file, id } = row.original;
 
+            console.log("License",justification_file, id);
+
             return (
                 <div className="flex justify-center">
-                    <ViewButton fileUrl={justification_file} justificationId={id} />
+                    <ViewButtonLicense fileUrl={justification_file} justificationId={id} />
                 </div>
             );
         },

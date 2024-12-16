@@ -158,7 +158,7 @@ const RequestLicenseCard = () => {
                                 <p className="text-sm text-gray-500">{license.description}</p>
                             </CardHeader>
                             <CardContent className="px-6 py-4 flex-grow">
-                                <p className="text-base text-black font-medium mb-2">
+                                <p className="text-base text-black font-medium">
                                     <strong>Duración: {license.max_duration_days} días</strong>
                                 </p>
                                 {license.annual_limit && (
@@ -166,13 +166,8 @@ const RequestLicenseCard = () => {
                                         <strong>Límite anual: </strong>{license.annual_limit} solicitudes
                                     </p>
                                 )}
-                                {license.requires_justification && (
-                                    <p className="text-sm text-gray-600 mb-2">
-                                        <strong>Requiere justificación: </strong> Sí
-                                    </p>
-                                )}
                                 {license.required_documents && (
-                                    <div className="mt-4">
+                                    <div className="mt-2">
                                         <p className="font-semibold text-sm text-gray-600">Documentos requeridos:</p>
                                         <ul className="list-disc pl-5 text-sm text-gray-600">
                                             {Array.isArray(license.required_documents)
@@ -192,7 +187,7 @@ const RequestLicenseCard = () => {
                                     <DialogTrigger asChild>
                                         <Button
                                             variant="outline"
-                                            className="w-full bg-black hover:bg-gray-800 text-white border border-black rounded-lg transition-colors duration-300"
+                                            className="w-full bg-gray-400 text-white border border-gray-400 rounded-lg transition-all duration-300 shadow-md hover:brightness-90 hover:shadow-lg"
                                             onClick={() => setSelectedLicenseId(license.id)} // Establecer el ID de la licencia seleccionada
                                         >
                                             Solicitar
