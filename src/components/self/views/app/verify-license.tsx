@@ -38,7 +38,7 @@ export const VerifiyLicenseComponent = () => {
                     const data = await get_supervisor_request();
                     const licenses_requests = data as VerifyLicenseType[];
 
-                    console.log("just",licenses_requests);
+                    console.log("just",licenses_requests, isLoading);
 
                     setLicensesRequests(licenses_requests);
                     setFilteredData(licenses_requests);
@@ -56,7 +56,7 @@ export const VerifiyLicenseComponent = () => {
         };
 
         fetchData();
-    }, [user]);
+    }, [isLoading, user]);
 
     useEffect(() => {
         const applyFilters = () => {
