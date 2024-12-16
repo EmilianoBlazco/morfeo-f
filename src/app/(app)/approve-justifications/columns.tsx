@@ -47,6 +47,8 @@ export const columns: ColumnDef<ApproveJustification>[] = [
         cell: ({ row }) => {
             const { file_url, id } = row.original;
 
+            console.log("Actions aprove",file_url,id);
+
             return (
                 <div className="flex justify-center">
                     <ViewButton fileUrl={file_url} justificationId={id} />
