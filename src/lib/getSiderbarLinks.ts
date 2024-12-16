@@ -1,4 +1,4 @@
-import {Home, QrCode, ScanLine, CalendarPlus, ArchiveRestore, UserRoundSearch, CalendarSearch} from "lucide-react";
+import {Home, QrCode, ScanLine, CalendarPlus, ArchiveRestore, UserRoundSearch, NotepadText, CalendarSearch} from "lucide-react";
 import {ComponentType} from "react";
 
 // Tipo para un enlace en la barra lateral
@@ -17,6 +17,7 @@ const baseLinks: SidebarLink[] = [
     { href: "/approve-justifications", icon: UserRoundSearch, label: "Control de Justificaciones" },
     { href: "/license", icon: CalendarPlus, label: "Licencias" },
     { href: "/license/verify-license", icon: CalendarSearch , label: "Verificacion de Licencias" },
+    { href: "/payroll-data", icon: NotepadText, label: "Datos para Liquidación" },
 ];
 
 // Configuración de rutas adicionales

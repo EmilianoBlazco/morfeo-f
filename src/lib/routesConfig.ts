@@ -11,6 +11,7 @@ export const routeLayouts = {
     '/qr-code': AuthLayout,
     '/qr-scan': AuthLayout,
     '/license': AuthLayout,
+    '/payroll-data': AuthLayout,
     '/license/verify-license': AuthLayout,
     'default': GuestLayout,
 };
